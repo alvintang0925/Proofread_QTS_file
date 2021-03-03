@@ -19,8 +19,9 @@ using namespace std;
 using namespace __fs::filesystem;
 
 int TITLENUMBER = 3;
-string title[] = {"m: ", "Trend: ", "Best generation"};
-string correct_title[] = {"預期報酬", "起點值", "找到最佳解世代"};
+string title[] = {"Final funds", "m", "Daily_risk", "Best generation", "Best experiment", "Best answer times", "Stock number", "Number", "Remain funds"};
+
+string correct_title[] = {"最後資金", "預期報酬", "風險", "找到最佳解世代", "找到最佳解實驗#", "找到最佳解次數", "投資組合檔數", "張數", "剩餘資金"};
 
 string file_dir = "test/2021_02_18_linear_output/H2M/train/";
 string correct_file_dir = "test/DJI_30/H2M/Portfolio/訓練期/";
@@ -161,6 +162,7 @@ vector<string> genFilename(string fileDir){
 
 
 void proofReading(vector<string> filename_list, vector<string> correct_filename_list){
+    bool same = true;
     if(filename_list.size() != correct_filename_list.size()){
         cout << "file number is not the same!!" << endl;
         return;
@@ -170,7 +172,7 @@ void proofReading(vector<string> filename_list, vector<string> correct_filename_
         vector<vector<string>> correct_data;
         myData = readSpeData(file_dir + filename_list[i], title_vector);
         correct_data = readSpeData(correct_file_dir + correct_filename_list[i], correct_title_vector);
-        bool same = true;
+        
         cout << endl;
         for(int j = 0; j < myData.size(); j++){
             bool find_diff = false;
@@ -196,11 +198,11 @@ void proofReading(vector<string> filename_list, vector<string> correct_filename_
             }
         }
         
-        if(same){
-            cout << "Two files are the same!" << endl;
-        }
-        
         cout << endl;
+    }
+    
+    if(same){
+        cout << "Total files are the same!" << endl;
     }
 }
 
