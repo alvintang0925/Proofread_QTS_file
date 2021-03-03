@@ -22,11 +22,11 @@ int TITLENUMBER = 3;
 string title[] = {"m: ", "Trend: ", "Best generation"};
 string correct_title[] = {"預期報酬", "起點值", "找到最佳解世代"};
 
+string file_dir = "test/2021_02_18_linear_output/H2M/train/";
+string correct_file_dir = "test/DJI_30/H2M/Portfolio/訓練期/";
+
 vector<string> title_vector(title, title + TITLENUMBER);
 vector<string> correct_title_vector(correct_title, correct_title + TITLENUMBER);
-string file_dir = "test/myOutput/Y2Y/train/";
-string correct_file_dir = "test/DJI_30/Y2Y/Portfolio/訓練期/";
-string test_file_dir = "test/123.txt";
 
 
 std::string UnicodeToUTF8(const std::wstring & wstr)
@@ -145,12 +145,12 @@ vector<vector<string>> readSpeData(string filename,  vector<string> title_list) 
 vector<string> genFilename(string fileDir){
     vector<string> temp;
     path p1(fileDir);
-//    std::cout << "Files in " << p1 << std::endl;
     for( directory_iterator it = directory_iterator(p1);
         it != directory_iterator(); ++ it )
     {
         path px = it->path();
         if(px.extension() == ".csv"){
+//            cout << px.filename() << endl;
             temp.push_back(px.filename());
         }
     }
@@ -161,6 +161,10 @@ vector<string> genFilename(string fileDir){
 
 
 void proofReading(vector<string> filename_list, vector<string> correct_filename_list){
+    if(filename_list.size() != correct_filename_list.size()){
+        cout << "file number is not the same!!" << endl;
+        return;
+    }
     for(int i = 0; i < filename_list.size(); i++){
         vector<vector<string>> myData;
         vector<vector<string>> correct_data;
@@ -195,6 +199,8 @@ void proofReading(vector<string> filename_list, vector<string> correct_filename_
         if(same){
             cout << "Two files are the same!" << endl;
         }
+        
+        cout << endl;
     }
 }
 
